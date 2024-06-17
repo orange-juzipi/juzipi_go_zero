@@ -1,0 +1,18 @@
+# 所有 server 服务的配置文件
+
+services:
+  server:
+    build:
+      context: . # 构建的路径
+      dockerfile: ./restful/user/Dockerfile # 指定 Dockerfile 文件
+    ports:
+      - 8888:8888
+    networks:
+      - juzipi_network
+    depends_on: # 依赖的服务
+      mysql:
+        condition: service_healthy # service_healthy 服务已经健康
+      redis:
+        condition: service_started # service_started 服务已经启动
+
+
